@@ -1,0 +1,11 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- <ImportNetSdkFromRepoToolset>false</ImportNetSdkFromRepoToolset> -->
+  </PropertyGroup>
+
+  <Import Project="FSharpBuild.Directory.Build.props" Condition = " '$(FSharpTestCompilerVersion)' == '' "/>
+  <Import Project="FSharpTests.Directory.Build.props" Condition = " '$(FSharpTestCompilerVersion)' != '' "/>
+  <!-- set public keys for IVTs -->
+
+</Project>

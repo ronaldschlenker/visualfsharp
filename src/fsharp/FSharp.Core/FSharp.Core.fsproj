@@ -5,7 +5,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFrameworks>net45;netstandard1.6</TargetFrameworks>
-    <AssemblyName>FSharp.Core</AssemblyName>
+    <TargetFrameworks Condition="'$(OS)' == 'Unix'">netstandard1.6</TargetFrameworks>
     <PackageId>FSharp.Core</PackageId>
     <PackageVersion>$(FSCorePackageVersion)</PackageVersion>
     <NuspecFile>FSharp.Core.nuspec</NuspecFile>

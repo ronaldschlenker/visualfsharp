@@ -132,15 +132,26 @@ To build and test Visual F# IDE Tools, install these requirements:
 
 - Download [Visual Studio 2017](https://www.visualstudio.com/downloads/)
 - Launch the Visual Studio Installer
-  - Under the "Windows" workloads, select ".NET desktop development"
-    - Select "F# desktop language support" under the optional components
-  - Under the "Other Toolsets" workloads, select "Visual Studio extension development"
+  - Under the **"Windows"** workload, select **".NET desktop development"**
+    - Select the optional component **"F# desktop language support"**
+  - Under the **"Mobile & Gaming"** workload, select **"Mobile development with .NET"**
+  - Under the **"Other Toolsets"** workload, select **"Visual Studio extension development"**
+  - On the **"Individual Components"** tab, select **".NET Framework 4.7.2 SDK"** and **".NET Framework 4.7.2 targeting pack"**
 
 Steps to build:
 
-    build.cmd vs              -- build the Visual F# IDE Tools in Release configuration (see below)
-    build.cmd vs debug        -- build the Visual F# IDE Tools in Debug configuration (see below)
-    build.cmd vs test         -- build Visual F# IDE Tools, run all tests (see below)
+    Build.cmd                             -- build all F# components under the default configuration (Debug)
+    Build.cmd -configuration Release      -- build all F# components as Release
+    Build.cmd -testDesktop                -- build and test all net46 tests
+
+All test options:
+
+    -testDesktop                          -- test all net46 target frameworks
+    -testCoreClr                          -- test all netstandard and netcoreapp target frameworks
+    -testFSharpQA                         -- test all F# Cambridge tests
+    -testVs                               -- test all VS integration points
+    -testFcs                              -- test F# compiler service components
+    -testAll                              -- all of the above
 
 Use ``VisualFSharp.sln`` if you're building the Visual F# IDE Tools.
 

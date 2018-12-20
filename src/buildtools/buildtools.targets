@@ -1,9 +1,11 @@
 <Project>
 
   <PropertyGroup>
-    <DotNetExe Condition=" '$(OS)' == 'Unix' ">dotnet</DotNetExe>
-    <DotNetExe Condition=" '$(OS)' != 'Unix' ">dotnet.exe</DotNetExe>
-    <!-- When building from source, `dotnet` is expected to be on the path. -->
+    <!-- during a regular build `dotnet(.exe)` is expected to be on the path -->
+    <DotNetExe Condition="'$(OS)' == 'Unix'">dotnet</DotNetExe>
+    <DotNetExe Condition="'$(OS)' != 'Unix'">dotnet.exe</DotNetExe>
+    <!-- if already running under dotnet, use that instance -->
+    <DotNetExe Condition="'$(DOTNET_HOST_PATH)' != ''">$(DOTNET_HOST_PATH)</DotNetExe>
     <DotNetExePath>$(DotNetExe)</DotNetExePath>
   </PropertyGroup>
 
@@ -15,7 +17,7 @@
           BeforeTargets="CoreCompile">
 
     <PropertyGroup>
-        <FsLexPath>$(ArtifactsBinDir)\fslex\Proto\netcoreapp2.0\fslex.dll</FsLexPath>
+        <FsLexPath Condition="'$(FsLexPath)' == ''">$(ArtifactsDir)\Bootstrap\fslex.dll</FsLexPath>
     </PropertyGroup>
 
     <!-- Create the output directory -->
@@ -38,7 +40,7 @@
           BeforeTargets="CoreCompile">
 
     <PropertyGroup>
-        <FsYaccPath>$(ArtifactsBinDir)\fsyacc\Proto\netcoreapp2.0\fsyacc.dll</FsYaccPath>
+        <FsYaccPath Condition="'$(FsYaccPath)' == ''">$(ArtifactsDir)\Bootstrap\fsyacc.dll</FsYaccPath>
     </PropertyGroup>
 
     <!-- Create the output directory -->

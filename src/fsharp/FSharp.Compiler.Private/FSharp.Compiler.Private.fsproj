@@ -5,6 +5,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFrameworks>net46;netstandard1.6</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' == 'Unix'">netstandard1.6</TargetFrameworks>
     <AssemblyName>FSharp.Compiler.Private</AssemblyName>
     <NoWarn>$(NoWarn);45;55;62;75;1204</NoWarn>
     <AllowCrossTargeting>true</AllowCrossTargeting>
@@ -19,6 +20,12 @@
   <PropertyGroup Condition="'$(TargetFramework)' == 'net46' AND '$(OS)' == 'Windows_NT'">
     <!-- portable PDBs can't be properly generated for this assembly -->
     <DebugType>full</DebugType>
+    <EnableSourceLink>false</EnableSourceLink>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard')) AND '$(OS)' == 'Windows_NT'">
+    <!-- portable PDBs can't be properly converted for this assembly -->
+    <PublishWindowsPdb>false</PublishWindowsPdb>
   </PropertyGroup>
 
   <Target Name="CopyToBuiltBin" BeforeTargets="BuiltProjectOutputGroup" AfterTargets="CoreCompile">
